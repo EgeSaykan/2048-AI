@@ -1,2 +1,11 @@
-# 2048-AI
-I will build the classic 2048 game using pygame, and try to manage to create the perfect AI for it.
+# 2048 AI
+
+# Goal
+Using pygame library I have created a very basic version of 2048 game.
+My goal is to create an AI using NEAT algorithm to solve the game.
+
+# Game
+Game is very simple, numbers move up, down, left or right. Same numbers add up.
+
+# AI
+AI is still in development.
