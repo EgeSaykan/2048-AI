@@ -2,7 +2,7 @@ from random import choice, randint
 from copy import deepcopy
 
 # adds to direction given as string: RIGHT, LEFT, UP, DOWN
-def addTheGrid(map, direction):
+def addTheGrid(map, direction):    
 
     if direction == 'RIGHT':
         for c in range(len(map)):
@@ -12,42 +12,41 @@ def addTheGrid(map, direction):
                         map[c][m] += 1
                         map[c][m - k] = 0
                         break
+                    elif map[c][m] != map[c][m-k] and map[c][m] != 0 and map[c][m-k] != 0: break
 
     elif direction == 'LEFT':    
         for c in range(len(map)):
             for m in range(0, 3):
                 for k in range(1, 4 - m):
                     if map[c][m] == map[c][m+k] and map[c][m] != 0:
-                        print(c, m, k)
                         map[c][m] += 1
                         map[c][m + k] = 0    
                         break
+                    elif map[c][m] != map[c][m+k] and map[c][m] != 0 and map[c][m+k] != 0: break
     
     elif direction == 'UP':    
         for m in range(len(map[0])):
             for c in range(0, 3):
                 for k in range(1, 4 - c):
                     if map[c][m] == map[c+k][m] and map[c][m] != 0:
-                        
                         map[c][m] += 1
                         map[c + k][m] = 0    
                         break
+                    elif map[c][m] != map[c+k][m] and map[c][m] != 0 and map[c+k][m] != 0: break
 
     elif direction == 'DOWN':    
         for m in range(len(map[0])):
             for c in range(3, 0, -1):
                 for k in range(1, 1 + c):
                     if map[c][m] == map[c-k][m] and map[c][m] != 0:
-                        
                         map[c][m] += 1
                         map[c - k][m] = 0    
                         break
-
+                    elif map[c][m] != map[c-k][m] and map[c][m] != 0 and map[c-k][m] != 0: break
 
 
 # then moves the numbers to empty boxes to direction given as string: RIGHT, LEFT, UP, DOWN
 def moveTheGrid(map, direction):
-
     if direction == 'RIGHT':
         for i in range(len(map)):
             for m in range(2, -1, -1):                
@@ -97,7 +96,7 @@ def setNewGrid(map, direction):
     return True
 
 
-
+# creates a new number on the grid
 def randomNumberGeneration(map):
     emptyspots = []
     for i in range(4):
@@ -106,12 +105,12 @@ def randomNumberGeneration(map):
     
     randomIndex = choice(emptyspots)
 
-    # chosing randomly between 4 or 2, chance for 2 is 70%, chance for 4 is 30%
+    # chosing randomly between 4 or 2, chance for 2 is 90%, chance for 4 is 10%
     twoOrFour = randint(1, 10)
-    if twoOrFour > 7: map[randomIndex[0]][randomIndex[1]] = 2
+    if twoOrFour > 9: map[randomIndex[0]][randomIndex[1]] = 2
     else: map[randomIndex[0]][randomIndex[1]] = 1
 
-
+# checks if there are any available moves
 def checkIfLost(map):
     copy1, copy2, copy3, copy4 = [deepcopy(map) for i in range(4)]
     setNewGrid(copy1, "RIGHT")
@@ -119,6 +118,7 @@ def checkIfLost(map):
     setNewGrid(copy3, "UP")
     setNewGrid(copy4, "DOWN")
 
+    # returns True if both of the copies are same as initial grid
     if copy1 == map and copy2 == map and copy3 == map and copy4 == map:
         return True
     return False 

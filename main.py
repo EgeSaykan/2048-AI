@@ -11,11 +11,8 @@ pg.display.set_caption("2048")                      # Set the window title to 20
 
 # keeps a track of the map, 0 is empty, every other number is interpreted as a power of 2
 theMatrix = [[0 for i in range(4)] for m in range(4)]
-theMatrix[2][3] = 2
-theMatrix[2][0] = 2
-
-
-
+fn.randomNumberGeneration(theMatrix)
+fn.randomNumberGeneration(theMatrix)
 
 def drawBackground():
     win.fill((227, 220, 200))
@@ -44,8 +41,11 @@ direction = ""
 while run:
     drawBackground()
     drawNumbers()
-    # break if X is pressed
+
+    
     for event in pg.event.get():
+
+        # get the pressed key and define direction accordingly
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_LEFT:
                 direction = "LEFT"
@@ -56,9 +56,12 @@ while run:
             elif event.key == pg.K_DOWN:
                 direction = "DOWN"
 
-            if fn.setNewGrid(theMatrix, direction):
-                fn.randomNumberGeneration(theMatrix)
-            if fn.checkIfLost(theMatrix): run = False
+
+            if fn.setNewGrid(theMatrix, direction):     # call fn.setNewGrid and check if a new move has been made
+                fn.randomNumberGeneration(theMatrix)    # create a new number if a move is made
+            if fn.checkIfLost(theMatrix): run = False   # terminate if there are no available moves
+        
+        # break if X is pressed
         if event.type == pg.QUIT:
             run = False
             break
