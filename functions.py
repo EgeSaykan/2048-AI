@@ -45,6 +45,21 @@ def addTheGrid(map, direction):
                     elif map[c][m] != map[c-k][m] and map[c][m] != 0 and map[c-k][m] != 0: break
 
 
+# Evaluates the score
+def evaluateMap(map):
+    avarage = 0
+    for i in map: 
+        for m in i: 
+            avarage += m / 16
+    
+    centre_of_mass = (map[0][0] * 8 + map[0][1] * 4 + map[1][0] * 4 + map[1][1] * 2) * 2 + (map[3][0] * 8 + map[3][1] * 4 + map[2][0] * 4 + map[2][1] * 2) + (map[0][3] * 8 + map[0][2] * 4 + map[1][3] * 4 + map[2][1] * 2) + (map[3][3] * 8 + map[3][2] * 4 + map[2][3] * 4 + map[2][2] * 2)
+    centre_of_mass /= 4
+
+    return centre_of_mass * avarage
+
+
+
+
 # then moves the numbers to empty boxes to direction given as string: RIGHT, LEFT, UP, DOWN
 def moveTheGrid(map, direction):
     if direction == 'RIGHT':
